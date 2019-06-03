@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.wso2.samples</groupId>
+    <artifactId>osgi_sample</artifactId>
+    <packaging>bundle</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>org.wso2</groupId>
+        <artifactId>wso2</artifactId>
+        <version>1</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>${commons-logging.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.orbit.org.apache.oltu.oauth2</groupId>
+            <artifactId>oltu</artifactId>
+            <version>${oltu.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.scr</artifactId>
+            <version>1.0.8</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-scr-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Name>${project.artifactId}</Bundle-Name>
+                        <Private-Package>
+                            org.wso2.samples.osgi.internal
+                        </Private-Package>
+                        <Import-Package>
+                            javax.servlet.http; version="${imp.pkg.version.javax.servlet}",
+
+                            org.apache.oltu.oauth2.*; version="${oltu.package.import.version.range}",
+                            org.apache.commons.lang; version="${commons-lang.wso2.osgi.version.range}",
+                            org.apache.commons.logging; version="${commons-logging.osgi.version.range}",
+                            org.apache.commons.codec.binary; version="${commons-codec.wso2.osgi.version.range}",
+
+                            org.osgi.framework; version="${osgi.framework.imp.pkg.version.range}",
+                            org.osgi.service.component; version="${osgi.service.component.imp.pkg.version.range}",
+
+                            org.wso2.carbon.ui; version="${carbon.kernel.package.import.version.range}"
+                        </Import-Package>
+                        <Export-Package>
+                            !org.wso2.samples.osgi.internal,
+                            org.wso2.samples.osgi.*;
+                            version="1.0-SNAPSHOT"
+                        </Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Carbon kernel version -->
+        <carbon.kernel.version>4.4.3</carbon.kernel.version>
+        <carbon.kernel.package.import.version.range>[4.4.0, 5.0.0)</carbon.kernel.package.import.version.range>
+        <carbon.kernel.registry.imp.pkg.version>[1.0.1, 2.0.0)</carbon.kernel.registry.imp.pkg.version>
+
+        <osgi.service.component.imp.pkg.version.range>[1.2.0, 2.0.0)</osgi.service.component.imp.pkg.version.range>
+        <osgi.service.http.imp.pkg.version.range>[1.2.1, 2.0.0)</osgi.service.http.imp.pkg.version.range>
+        <osgi.framework.imp.pkg.version.range>[1.7.0, 2.0.0)</osgi.framework.imp.pkg.version.range>
+        <osgi.util.tracker.imp.pkg.version.range>[1.5.1, 2.0.0)</osgi.util.tracker.imp.pkg.version.range>
+
+        <!--Carbon commons version-->
+        <carbon.commons.version>4.4.8</carbon.commons.version>
+        <carbon.commons.imp.pkg.version>[4.4.0, 5.0.0)</carbon.commons.imp.pkg.version>
+
+
+        <!-- Servet Version -->
+        <servlet-api.version>2.5</servlet-api.version>
+        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+        <version.javax.servlet.jsp>2.2.0.v201112011158</version.javax.servlet.jsp>
+        <javax.servelet.jstl.version>1.2</javax.servelet.jstl.version>
+        <imp.pkg.version.javax.servlet.jsp.jstl>[1.2.1, 2.0.0)</imp.pkg.version.javax.servlet.jsp.jstl>
+        <imp.pkg.version.javax.servlet.jsp>[2.2.0, 3.0.0)</imp.pkg.version.javax.servlet.jsp>
+
+
+        <!-- Servlet API -->
+        <exp.pkg.version.javax.servlet>2.6.0</exp.pkg.version.javax.servlet>
+        <imp.pkg.version.javax.servlet>[2.6.0, 3.0.0)</imp.pkg.version.javax.servlet>
+
+        <!-- Misc -->
+
+        <version.javax.servlet>3.0.0.v201112011016</version.javax.servlet>
+        <oltu.version>1.0.0.wso2v3</oltu.version>
+        <org.apache.oltu.oauth2.client.version>1.0.0</org.apache.oltu.oauth2.client.version>
+        <oltu.package.import.version.range>[1.0.0, 2.0.0)</oltu.package.import.version.range>
+        <apacheds.core.version>1.5.7</apacheds.core.version>
+        <apacheds.imp.pkg.version.range>[1.5.7,2.0.0)</apacheds.imp.pkg.version.range>
+        <nimbusds.version>2.26.1.wso2v3</nimbusds.version>
+        <nimbusds.osgi.version.range>[2.26.1,3.0.0)</nimbusds.osgi.version.range>
+        <bcprov.version>1.49.0.wso2v2</bcprov.version>
+
+        <!-- Orbits -->
+        <orbit.version.xmlschema>1.4.7.wso2v3</orbit.version.xmlschema>
+        <orbit.version.infinispan>5.1.2.wso2v1</orbit.version.infinispan>
+        <orbit.version.h2.engine>1.2.140.wso2v3</orbit.version.h2.engine>
+
+        <!--OpenJPA -->
+        <openjpa.version>2.2.0-wso2v1</openjpa.version>
+
+        <!--SCM-->
+        <orbit.version.maven-scm>1.7.0.wso2v1</orbit.version.maven-scm>
+
+        <!-- Rampart -->
+        <rampart.wso2.version>1.6.1.wso2v17</rampart.wso2.version>
+        <rampart.wso2.osgi.version.range>[1.6.1,2.0.0)</rampart.wso2.osgi.version.range>
+        <rampart.mar.version>1.6.1.wso2v17</rampart.mar.version>
+
+        <!-- Equinox -->
+        <version.equinox.osgi.services>3.3.100.v20130513-1956</version.equinox.osgi.services>
+        <version.equinox.osgi>3.9.1.v20130814-1242</version.equinox.osgi>
+        <equinox.osgi.stax-api.imp.pkg.version.range>[1.0.1,2.0.0)</equinox.osgi.stax-api.imp.pkg.version.range>
+
+        <!-- Commons -->
+        <commons-beanutils.version>1.8.0</commons-beanutils.version>
+        <commons-collections.version>3.2.0.wso2v1</commons-collections.version>
+        <commons-digester.version>1.8</commons-digester.version>
+        <commons-io.wso2.version>2.4.0.wso2v1</commons-io.wso2.version>
+        <commons.io.wso2.osgi.version.range>[2.4.0,3.0.0)</commons.io.wso2.osgi.version.range>
+        <commons-fileupload.wso2.version>1.2.2.wso2v1</commons-fileupload.wso2.version>
+        <commons-fileupload.imp.pkg.version.range>[1.2.2,2.0.0)</commons-fileupload.imp.pkg.version.range>
+        <commons-httpclient.wso2.version>3.1.0.wso2v2</commons-httpclient.wso2.version>
+        <commons-httpclient.wso2.osgi.version>[3.1.0,4.0.0)</commons-httpclient.wso2.osgi.version>
+        <commons-dbcp.version>1.2.2</commons-dbcp.version>
+        <commons-logging.version>1.2</commons-logging.version>
+        <commons-logging.osgi.version.range>[1.2,2.0)</commons-logging.osgi.version.range>
+        <commons-lang.wso2.version>2.6.0.wso2v1</commons-lang.wso2.version>
+        <commons-lang.wso2.osgi.version.range>[2.6.0,3.0.0)</commons-lang.wso2.osgi.version.range>
+        <commons-pool.wso2.osgi.version.range>[1.5.6,2.0.0)</commons-pool.wso2.osgi.version.range>
+        <commons-codec.wso2.osgi.version.range>[1.4.0,2.0.0)</commons-codec.wso2.osgi.version.range>
+        <commons-collections.wso2.osgi.version.range>[3.2.0,4.0.0)</commons-collections.wso2.osgi.version.range>
+
+        <log4j.version>1.2.13</log4j.version>
+
+        <version.commons.logging>1.1.1</version.commons.logging>
+
+
+    </properties>
+
+</project>
